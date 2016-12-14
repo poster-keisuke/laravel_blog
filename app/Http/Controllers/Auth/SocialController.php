@@ -11,7 +11,7 @@ use App\SocialAccount;
 
 class SocialController extends Controller
 {
-    protected $redirectTo = '/home';        //your-redirect-url-after-login
+    protected $redirectTo = '/';        //your-redirect-url-after-login
 
     // twitter
 
@@ -62,6 +62,10 @@ class SocialController extends Controller
         Auth::login($user, true);
 
         return redirect($this->redirectTo);
+    }
+
+    public function socialLogin() {
+        return view('auth.social');
     }
 
     public function createOrGetUser($providerUser, $provider)

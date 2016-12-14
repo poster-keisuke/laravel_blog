@@ -43,6 +43,10 @@ Route::get('auth/register', 'Auth\RegisterController@__construct');
 /* ユーザー登録処理 */
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 
+
+Route::get('/login/social', 'Auth\SocialController@socialLogin');
+
+
 //twitter
 Route::get('/login/twitter', 'Auth\SocialController@getTwitterAuth');
 Route::get('/login/twitter/callback', 'Auth\SocialController@getTwitterAuthCallback');
