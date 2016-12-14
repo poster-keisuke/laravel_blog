@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Request;
 use App\User;
 use App\Post;
-use Illuminate\Http\Request;
 use Auth;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -45,6 +45,17 @@ class UsersController extends Controller
 	    // dd($user_posts);
 	    return view('users.show')->with('user_posts',$user_posts);
 	}
+
+	public function getSearch() {
+	    $query = Request::get('q');
+
+	    if ($query) {
+	      $users = User::where('name', 'like', "%$query%")->Paginate(5);
+	    } else {
+	      $users = User::all();
+	    }
+	    return view('users.index')->with('users',$users);
+	  }
 
 
 }

@@ -1,8 +1,14 @@
 @extends('layouts.app')
 @section('content')
 
+<div class="search">
+  {{ Form::open(['method' => 'GET']) }}
+  {{ Form::input('検索する', 'q', null) }}
+  {{ Form::close() }}
+</div>
+
 <h5>
-  <a href="{{ url('/') }}" class="pull-right fs12">Back</a>
+  <a href="{{ $_SERVER['HTTP_REFERER'] }}" class="pull-right fs12">Back</a>
 </h5>
 
 <h1>ユーザー一覧</h1>
@@ -17,6 +23,14 @@
   </tr>
 @endforeach
 </table>
+
+<h5 class="user__title">
+  <a href="/users">ユーザー一覧ページへ</a>
+</h5>
+<br>
+<h5 class="user__title">
+  <a href="/">topページへ</a>
+</h5>
 
 <!-- page control -->
 {{-- {!! $users->render() !!} --}}
