@@ -49,6 +49,7 @@
   <a href="/">topページへ</a>
 </h5>
 
+
 <script>
 function deletePost(e) {
   'use strict';
