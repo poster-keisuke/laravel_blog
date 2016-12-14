@@ -1,11 +1,11 @@
 @extends('layouts.app')
 @section('content')
 
-{{-- <div class="search">
+<div class="search">
   {{ Form::open(['method' => 'GET']) }}
   {{ Form::input('検索する', 'q', null) }}
   {{ Form::close() }}
-</div> --}}
+</div>
 
 <h1>
   <a href="{{ url('/posts/create') }}" class="pull-right fs12">Add New</a>
@@ -36,10 +36,17 @@
   <li>No Posts yet</li>
   @endforelse
 </ul>
-{!! $posts->links() !!}
+
+<div class="paginate">
+  {{ $posts->appends(Request::only('q'))->links() }}
+</div>
 
 <h5 class="user__title">
   <a href="/users">ユーザー一覧ページへ</a>
+</h5>
+<br>
+<h5 class="user__title">
+  <a href="/">topページへ</a>
 </h5>
 
 <script>
