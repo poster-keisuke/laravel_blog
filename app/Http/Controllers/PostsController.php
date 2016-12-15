@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Request;
 use App\Post;
 use App\User;
 use Input;
@@ -24,12 +24,7 @@ class PostsController extends Controller
     if (Auth::guest()) {
       return $this->isLoggedIn();
     } else {
-      if (isset($_GET['sort']) == 'old') {
-        $posts = Post::orderBy('created_at', 'asc')->Paginate(5);
-      } else {
-        $posts = Post::orderBy('created_at', 'desc')->Paginate(5);
-      }
-      // $posts = Post::all();
+      $posts = Post::orderBy('created_at', 'desc')->Paginate(5);
       return view('posts.index')->with('posts', $posts);
     }
   }
@@ -125,8 +120,6 @@ class PostsController extends Controller
       $image['image'] = $path; 
       $post->image = $fileName;
 
-      // $post->save();
-      // dd(Auth::user()->posts());
       \Auth::user()->posts()->save($post);
       return redirect('/')->with('flash_message', 'Post Added!');
 
@@ -182,16 +175,19 @@ class PostsController extends Controller
     }
   }
 
-  // public function getSearch(){
-  //   $query = Request::get('q');
+  public function getSearch(){
+    $query = Request::get('q');
+    $sort_query = Request::get('sort');
 
-  //   if ($query) {
-  //     $posts = Post::where('title', 'like', "%$query%")->get();
-  //   } else {
-  //     $posts = Post::all();
-  //   }
-  //   return view('posts.index')->with('posts', $posts);
-  // }
+    if ($query) {
+      $posts = Post::where('title', 'like', "%$query%")->Paginate(5);
+    } elseif ($sort_query == 'old') {
+      $posts = Post::orderBy('created_at', 'asc')->Paginate(5);
+    } else {
+      $posts = Post::orderBy('created_at', 'desc')->Paginate(5);
+    }
+    return view('posts.index')->with('posts', $posts);
+  }
 
 
 
