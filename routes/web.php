@@ -28,7 +28,9 @@ Route::delete('/posts/{id}/', 'PostsController@destroy');
 Route::get('/', 'PostsController@getSearch');
 
 Route::get('/users','UsersController@index');
+Route::get('/users','UsersController@getSearch');
 Route::get('/user/{id}','UsersController@show');
+
 
 /* ログイン画面の表示 */
 Route::get('auth/login', 'Auth\AuthController@getLogin');
