@@ -20,14 +20,19 @@ class SocialController extends Controller
         return Socialite::driver('twitter')->redirect();
     }
 
-    public function getTwitterAuthCallback()
-    {
-        $twitterUser = Socialite::driver('twitter')->user();
-
-        $user = $this->createOrGetUser($twitterUser, 'twitter');
-        Auth::login($user, true);
-
-        return redirect($this->redirectTo);
+    public function getTwitterAuthCallback() {
+        try {
+            $twitterUser = Socialite::driver('twitter')->user();
+        } catch (\Exception $e) {
+            return redirct("/");
+        }
+        if ($twitterUser) {
+            $user = $this->createOrGetUser($twitterUser, 'twitter');
+            Auth::login($user, true);
+            return redirect($this->redirectTo);
+        } else {
+            return 'something went wrong';
+        }
     }
 
     // facebook
@@ -37,14 +42,25 @@ class SocialController extends Controller
         return Socialite::driver('facebook')->redirect();
     }
 
-    public function getFacebookAuthCallback()
-    {
-        $facebookUser = Socialite::driver('facebook')->stateless()->user(); // (1)
+    public function getFacebookAuthCallback() {
+        try {
+            $facebookUser = Socialite::driver('facebook')->user();
+        } catch (\Exception $e) {
+            return redirct("/");
+        }
+        if ($facebookUser) {
+            $user = $this->createOrGetUser($facebookUser, 'facebook');
+            Auth::login($user, true);
+            return redirect($this->redirectTo);
+        } else {
+            return 'something went wrong';
+        }
+        // $facebookUser = Socialite::driver('facebook')->stateless()->user(); // (1)
 
-        $user = $this->createOrGetUser($facebookUser, 'facebook');
-        Auth::login($user, true);
+        // $user = $this->createOrGetUser($facebookUser, 'facebook');
+        // Auth::login($user, true);
 
-        return redirect($this->redirectTo);
+        // return redirect($this->redirectTo);
     }
 
     // Google
@@ -54,14 +70,19 @@ class SocialController extends Controller
         return Socialite::driver('google')->redirect();
     }
 
-    public function getGoogleAuthCallback()
-    {
-        $googleUser = Socialite::driver('google')->user();
-
-        $user = $this->createOrGetUser($googleUser, 'google');
-        Auth::login($user, true);
-
-        return redirect($this->redirectTo);
+    public function getGoogleAuthCallback() {
+        try {
+            $googleUser = Socialite::driver('google')->user();
+        } catch (\Exception $e) {
+            return redirct("/");
+        }
+        if ($googleUser) {
+            $user = $this->createOrGetUser($googleUser, 'google');
+            Auth::login($user, true);
+            return redirect($this->redirectTo);
+        } else {
+            return 'something went wrong';
+        }
     }
 
     public function socialLogin() {
@@ -75,8 +96,7 @@ class SocialController extends Controller
             'provider'         => $provider,
         ]);
 
-        if (empty($account->user))
-        {
+        if (empty($account->user)) {
             $user = User::create([
                 'name'   => $providerUser->getName(),
                 'email'  => $providerUser->getEmail(),
