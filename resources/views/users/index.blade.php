@@ -24,6 +24,8 @@
 @endforeach
 </table>
 
+{!! $users->render() !!}
+
 <h5 class="user__title">
   <a href="/users">ユーザー一覧ページへ</a>
 </h5>
@@ -32,7 +34,5 @@
   <a href="/">topページへ</a>
 </h5>
 
-<!-- page control -->
-{{-- {!! $users->render() !!} --}}
 
 @stop

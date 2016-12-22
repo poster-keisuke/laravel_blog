@@ -6,8 +6,8 @@ use Request;
 use App\User;
 use App\Post;
 use Auth;
-
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Input;
 
 class UsersController extends Controller
 {
@@ -17,13 +17,29 @@ class UsersController extends Controller
           return redirect('/login')->with('flash_message', 'You are not login');
         }
 
-	    // $query = User::query();
-	    //全件取得
-	    //ページネーション
-	    // $users = $query->orderBy('id','desc');
-	    $users = User::all();
+	    $query = User::query();
+	    $users = $query->orderBy('id','desc');
 	    return view('users.index')->with('users',$users);
 	}
+
+	    //jsonを返す
+  public function json()
+    {
+        $query = User::query();
+        $users = $query->orderBy('id','desc')->paginate(2);
+        return \Response::json($users);
+    }
+
+   public function ajax()
+    {
+	    $page = Input::get('page');
+	    if(empty($page)) $page = 1;
+
+	    return view('users.ajax')->with('page',$page);
+	    // $query = User::query();
+     //    $page = $query->orderBy('id','desc')->paginate(2);
+     //    return view('users.ajax')->with('page',$page);
+    }
 
 	
 
@@ -52,7 +68,10 @@ class UsersController extends Controller
 	    if ($query) {
 	      $users = User::where('name', 'like', "%$query%")->Paginate(5);
 	    } else {
-	      $users = User::all();
+	      $query = User::query();
+	      $users = $query->orderBy('id','desc')->paginate(2);
+
+	      // $users = User::all();
 	    }
 	    return view('users.index')->with('users',$users);
 	  }

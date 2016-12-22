@@ -31,6 +31,12 @@ Route::get('/users','UsersController@index');
 Route::get('/users','UsersController@getSearch');
 Route::get('/user/{id}','UsersController@show');
 
+//JSON API
+Route::get('json','UsersController@json');
+
+//APIを呼び出す一覧用
+Route::get('/ajax','UsersController@ajax');
+
 
 /* ログイン画面の表示 */
 Route::get('auth/login', 'Auth\AuthController@getLogin');
