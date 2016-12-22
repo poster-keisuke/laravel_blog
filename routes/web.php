@@ -43,9 +43,22 @@ Route::get('auth/register', 'Auth\RegisterController@__construct');
 /* ユーザー登録処理 */
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 
-// Route::get('/{name}', function($name) {
-// 	return 'hello!' . $name;
-// });
+
+Route::get('/login/social', 'Auth\SocialController@socialLogin');
+
+
+//twitter
+Route::get('/login/twitter', 'Auth\SocialController@getTwitterAuth');
+Route::get('/login/twitter/callback', 'Auth\SocialController@getTwitterAuthCallback');
+
+//facebook
+Route::get('/login/facebook', 'Auth\SocialController@getFacebookAuth');
+Route::get('/login/facebook/callback', 'Auth\SocialController@getFacebookAuthCallback');
+
+//google
+Route::get('/login/google', 'Auth\SocialController@getGoogleAuth');
+Route::get('/login/google/callback', 'Auth\SocialController@getGoogleAuthCallback');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
