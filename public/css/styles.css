@@ -3,6 +3,18 @@ body {
   padding: 0;
   font-size: 16px;
   font-family: Verdana, sans-serif;
+  background-color: white;
+}
+
+.clearfix:after {
+    content:" ";
+    display:block;
+    clear:both;
+}
+
+h6.comment-name {
+    float: left;
+    margin-right: 20px;
 }
 
 .post__container {
@@ -14,6 +26,10 @@ h1 {
   font-size: 16px;
   border-bottom: 1px solid #ccc;
   padding-bottom: 5px;
+}
+
+h2 {
+  font-size: 16px;
 }
 
 ul > li {
@@ -88,4 +104,42 @@ textarea {
 
 .container {
   width: 1230px!important;
+}
+
+.add-comments {
+  width: 130px!important;
+  height: 38px;
+}
+
+ul.comment__content {
+    background-color: white;
+}
+
+form.comment__form {
+    padding-bottom: 20px;
+}
+
+.all-comments {
+    margin-top: 35px;
+    background-color: #f2f2f2;
+    padding: 10px 10px;
+}
+input.commentbox {
+    width: 85px;
+    height: 20px;
+    font-size: 5px;
+}
+
+input.submit-comments {
+    width: 52px;
+    font-size: 5px;
+    height: 20px;
+}
+
+li.comment_from_comment {
+    margin-left: 20px;
+}
+
+.reply-body {
+    font-size: 12px;
 }

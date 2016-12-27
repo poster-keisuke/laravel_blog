@@ -25,6 +25,10 @@ Route::post('/posts', 'PostsController@store');
 Route::patch('/posts/{id}/', 'PostsController@update');
 Route::delete('/posts/{id}/', 'PostsController@destroy');
 
+Route::post('/posts/{post}/comments', 'CommentsController@store');
+Route::post('/posts/{post}/comments/comment', 'RepliesController@store');
+Route::post('/posts/{post}/comments/reply', 'RepliesController@create');
+
 Route::get('/', 'PostsController@getSearch');
 
 Route::get('/users','UsersController@index');
